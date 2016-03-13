@@ -87,7 +87,11 @@ function neutron_lbaas_start {
     local is_run_process=True
 
     if is_service_enabled $LBAAS_V1; then
-        LBAAS_VERSION="q-lbaas"
+        if is_service_enabled q-lbaasv1; then
+            LBAAS_VERSION="q-lbaasv1"
+        else
+            LBAAS_VERSION="q-lbaas"
+        fi
         AGENT_LBAAS_BINARY=${AGENT_LBAASV1_BINARY}
     elif is_service_enabled $LBAAS_V2; then
         LBAAS_VERSION="q-lbaasv2"
